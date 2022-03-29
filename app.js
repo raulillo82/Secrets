@@ -9,8 +9,11 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const findOrCreate = require("mongoose-findorcreate");
 
-
 const app = express();
+
+//DB Password
+require("dotenv").config();
+const PASSWORD = process.env.DB_PASSWORD;
 
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
@@ -27,7 +30,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/userDB");
+//mongoose.connect("mongodb://localhost:27017/userDB");
+mongoose.connect("mongodb+srv://admin-raul:" + PASSWORD + "@cluster0.wg8xd.mongodb.net/userSecretsAppDB");
 
 const userSchema = new mongoose.Schema({
   email: String,
